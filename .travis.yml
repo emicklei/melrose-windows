@@ -5,6 +5,7 @@ go:
 - 1.15.x
 
 install:
+- go get github.com/emicklei/melrose
 - go install github.com/emicklei/melrose/cmd/melrose
 
 
