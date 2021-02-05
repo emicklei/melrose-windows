@@ -22,10 +22,10 @@ before_install:
         ## Install more MSYS2 packages from https://packages.msys2.org/base here
         
         ## https://www.devdungeon.com/content/install-gcc-compiler-windows-msys2-cc
-        $msys2 pacman -S base-devel gcc vim cmake
+        $msys2 pacman --noconfirm -S base-devel gcc vim cmake
 
         ## https://schollz.com/blog/portmidi/
-        $msys2 pacman -S mingw-w64-x86_64-portmidi
+        $msys2 pacman --noconfirm -S mingw-w64-x86_64-portmidi
 
         taskkill //IM gpg-agent.exe //F  # https://travis-ci.community/t/4967
         export PATH=/C/tools/msys64/mingw64/bin:$PATH
