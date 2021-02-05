@@ -1,8 +1,11 @@
 os: windows
 language: go
 
+go:
+- 1.15.x
+
 install:
-- go install github.com/emicklei/melrose
+- go install github.com/emicklei/melrose/cmd/melrose
 
 
 before_install:
