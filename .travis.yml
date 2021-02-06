@@ -4,7 +4,9 @@ language: go
 go:
 - 1.15.x
 
-install:
+script:
+- git clone --depth=50 https://github.com/emicklei/melrose.git emicklei/melrose
+- ls -l
 - go get -u -v github.com/emicklei/melrose
 - go install github.com/emicklei/melrose/cmd/melrose
 
