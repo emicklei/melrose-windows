@@ -8,7 +8,9 @@ script:
 - git clone --depth=50 https://github.com/emicklei/melrose.git emicklei/melrose
 - ls -l
 - cd emicklei/melrose/cmd/melrose
-- go install
+- go build
+- ls -l
+- echo $SOMEVAR
 
 
 before_install:
@@ -55,3 +57,7 @@ cache:
     directories:
     - $HOME/AppData/Local/Temp/chocolatey
     - /C/tools/msys64
+
+env:
+  global:
+    secure: Y1NiR8rg3VhyGdtXfN5RU++23KQbrIVNiacaLQBBeGBcfdNdRiX+FLrpozIdCGZ7OpgovFGgHOxMkOKqIA4DftH4LVnGZyhqlsLDcfjBOZTkkWlHf1cUevNuGQi+D9NvrutOI7802zDpBRT0NWV47iHGPaBceTg9vza3flsmgAmSRXM5Pbtp2aVwjVDgg+6AJJgZZejp7L/cdJCJCX/KMRzkPuAoztGEdjrZiP3a3GHNw44CUoTWht9YO5Q4bmHj1BMNerWjapvvPf074sEfv0cANnFFg17LCwuAYWlwJXSqaTtTXDrFV5P3xpwgZwqwCdzAKyD4MdX9QffzAZNB74YILD8rFIqKeWMBgt1pg5y1f9VNDirxW1GKCOGJm8ODxmSlp7d2Pah+1VfXUpXvU+ernY+tPze46N9uumLLeYyhmtaXXSgJoDSRcf+9JIH91arMw0aOg+g5caYv3izYVDR6m41ypTKocwQ/2hm8RLEU8U3+03MVTEN6iThpYpw6FeJ0WdSqMeCjTDi+SaBrdyKqA1Pnic6jTvxm1Oxw3iNjmcE3PIRtZZBMibRB+pMMC9jqbYap6HgavZAoE85KRD89MnNbJAZJSq5huO93YelkYd7dz1mCC0xArsw0r/dD6JZjfWGgaBT8Vs8d2ky9Wdc2WAnZMJqzJOKmnw9/WMo=    
