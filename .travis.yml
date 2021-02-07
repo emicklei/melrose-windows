@@ -7,8 +7,12 @@ go:
 script:
 - git clone --depth=50 https://github.com/emicklei/melrose.git emicklei/melrose
 - ls -l
+- ls -l 'C:\\tools\\msys64\mingw64\lib'
 - cd emicklei/melrose/cmd/melrose
-- go build
+- VERSION=$(git tag | sort -V | tail -1)
+- echo $VERSION
+- go build -ldflags="-X 'core.BuildTag=$VERSION'"
+- rm main.go
 - ls -l
 
 deploy:
@@ -18,6 +22,7 @@ deploy:
   bucket: "public.philemonworks.com"
   glob: "*.exe"
   skip_cleanup: true
+  acl: public_read
   on:
     branch: main
 
