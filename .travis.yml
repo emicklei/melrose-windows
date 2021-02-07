@@ -14,13 +14,13 @@ script:
 - go build -ldflags="-X 'core.BuildTag=$VERSION'"
 - rm main.go
 - ls -l
+- cp 'C:\\tools\\msys64\mingw64\\lib\\libportmidi.*' .
 
 deploy:
   provider: s3
   access_key_id: "$AWS_ACCESS_KEY"
   secret_access_key: "$AWS_SECRET_KEY"
   bucket: "public.philemonworks.com"
-  glob: "*.exe"
   skip_cleanup: true
   acl: public_read
   on:
