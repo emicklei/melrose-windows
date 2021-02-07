@@ -11,7 +11,7 @@ script:
 - cd emicklei/melrose/cmd/melrose
 - VERSION=$(git tag | sort -V | tail -1)
 - echo $VERSION
-- go build -ldflags="-X 'core.BuildTag=$VERSION'"
+- go build -ldflags="-X 'core.BuildTag=$VERSION' -linkmode external -extldflags -static"
 - rm main.go
 - ls -l
 - cp 'C:\\tools\\msys64\mingw64\\lib\\libportmidi.*' .
