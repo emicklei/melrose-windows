@@ -11,6 +11,8 @@ script:
 - cd emicklei/melrose/cmd/melrose
 - VERSION=$(git tag | sort -V | tail -1)
 - echo $VERSION
+- CGO_CFLAGS="-IC:\tools\msys64\mingw64\include"
+- CGO_LDFLAGS="-LC:\tools\msys64\mingw64\lib"
 - go build -ldflags="-X 'core.BuildTag=$VERSION'"
 - rm main.go
 - ls -l
