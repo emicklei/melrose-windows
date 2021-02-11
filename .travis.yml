@@ -5,25 +5,19 @@ go:
 - 1.15.x
 
 script:
-- pwd
-- mkdir target
-- git clone --depth=50 https://github.com/emicklei/melrose.git emicklei/melrose
+- pwd 
+#- git clone --depth=50 https://github.com/emicklei/melrose.git emicklei/melrose
 - ls -l
 - ls -l 'C:\\tools\\msys64\mingw64\bin'
-- cd emicklei/melrose/cmd/melrose
+#- cd emicklei/melrose/cmd/melrose
 - VERSION=$(git tag | sort -V | tail -1)
 - echo $VERSION
 - export CGO_CFLAGS="-IC:\tools\msys64\mingw64\include"
 - export CGO_LDFLAGS="-LC:\tools\msys64\mingw64\lib"
 - go build -v -buildmode=exe -ldflags="-X 'core.BuildTag=$VERSION'"
-- rm main.go
+#- rm main.go
 - ls -l
 - cp 'C:\\tools\\msys64\mingw64\bin\libportmidi.dll' .
-- echo "try MITI"
-- cd ..\..\..\..\
-- git clone https://github.com/schollz/miti.git schollz/miti
-- cd schollz/miti
-- go build -v -buildmode=exe
 
 deploy:
   provider: s3
