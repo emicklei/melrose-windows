@@ -5,6 +5,8 @@ go:
 - 1.15.x
 
 script:
+- pwd
+- mkdir target
 - git clone --depth=50 https://github.com/emicklei/melrose.git emicklei/melrose
 - ls -l
 - ls -l 'C:\\tools\\msys64\mingw64\bin'
@@ -17,6 +19,11 @@ script:
 - rm main.go
 - ls -l
 - cp 'C:\\tools\\msys64\mingw64\bin\libportmidi.dll' .
+- echo "try MITI"
+- cd ..\..\..\..\
+- git clone https://github.com/schollz/miti.git schollz/miti
+- cd schollz/miti
+- go build -v -buildmode=exe
 
 deploy:
   provider: s3
