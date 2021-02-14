@@ -32,14 +32,19 @@ func main() {
 		}
 
 	} else {
+		log.Println("open output stream")
 		midiout, err := portmidi.NewOutputStream(portmidi.DeviceID(*out), 256, 0)
 		if err != nil {
 			log.Println("error creating output stream", err)
 			return
 		}
+		log.Println("write C on")
 		midiout.WriteShort(0x90, 60, 100)
+		log.Println("wait 2 seconds")
 		time.Sleep(2 * time.Second)
+		log.Println("write C off")
 		midiout.WriteShort(0x80, 60, 100)
+		log.Println("close output stream")
 		midiout.Close()
 	}
 }
