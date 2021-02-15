@@ -14,6 +14,7 @@ script:
 - echo $VERSION
 - export CGO_CFLAGS="-IC:\tools\msys64\mingw64\include"
 - export CGO_LDFLAGS="-LC:\tools\msys64\mingw64\lib"
+- echo $CGO_LDFLAGS
 - go build -v -buildmode=exe -ldflags="-X 'core.BuildTag=$VERSION'"
 #- rm main.go
 - ls -l
@@ -43,9 +44,6 @@ before_install:
         export mingw64="$msys2 -mingw64 -full-path -here -c "\"\$@"\" --"
         export msys2+=" -msys2 -c "\"\$@"\" --"
         $msys2 pacman --sync --noconfirm --needed mingw-w64-x86_64-toolchain
-        
-        ## go install requires this
-        ## choco install gpg4win
 
         ## Install more MSYS2 packages from https://packages.msys2.org/base here
         
