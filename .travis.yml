@@ -15,7 +15,7 @@ script:
 - export CGO_CFLAGS="-IC:\\tools\msys64\mingw64\include"
 - export CGO_LDFLAGS="-LC:\\tools\msys64\mingw64\lib"
 - echo $CGO_LDFLAGS
-- go build -v -buildmode=exe -ldflags="-X 'core.BuildTag=$VERSION'"
+- CGO_ENABLED=1 go build -v -buildmode=exe -ldflags="-X 'core.BuildTag=$VERSION'"
 #- rm main.go
 - ls -l
 - cp 'C:\\tools\\msys64\mingw64\bin\libportmidi.dll' .
