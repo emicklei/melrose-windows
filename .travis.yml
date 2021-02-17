@@ -19,6 +19,7 @@ script:
 #- rm main.go
 - ls -l
 - cp 'C:\\tools\\msys64\mingw64\bin\libportmidi.dll' .
+- go env
 
 deploy:
   provider: s3
