@@ -1,50 +1,91 @@
 package main
 
 import (
-	"flag"
-	"log"
+	"fmt"
+	"os"
 	"time"
 
-	"github.com/rakyll/portmidi"
+	"gitlab.com/gomidi/midi"
+	"gitlab.com/gomidi/midi/reader"
+	"gitlab.com/gomidi/midi/writer"
+	driver "gitlab.com/gomidi/rtmididrv"
+	// when using portmidi, replace the line above with
+	// driver gitlab.com/gomidi/portmididrv
 )
 
-var out = flag.Int("out", -1, "use this device to test MIDI output")
-
-func main() {
-	flag.Parse()
-
-	err := portmidi.Initialize()
+func must(err error) {
 	if err != nil {
-		panic(err)
+		panic(err.Error())
 	}
-	defer portmidi.Terminate()
+}
 
-	if *out == -1 {
+// This example expects the first input and output port to be connected
+// somehow (are either virtual MIDI through ports or physically connected).
+// We write to the out port and listen to the in port.
+func main() {
+	drv, err := driver.New()
+	must(err)
 
-		for d := 0; d < portmidi.CountDevices(); d++ {
-			i := portmidi.Info(portmidi.DeviceID(d))
-			if i.IsInputAvailable {
-				log.Println(d, "INPUT", i.Interface, i.Name)
-			}
-			if i.IsOutputAvailable {
-				log.Println(d, "OUTPUT", i.Interface, i.Name)
-			}
-		}
+	// make sure to close all open ports at the end
+	defer drv.Close()
 
-	} else {
-		log.Println("open output stream")
-		midiout, err := portmidi.NewOutputStream(portmidi.DeviceID(*out), 256, 0)
+	ins, err := drv.Ins()
+	must(err)
+
+	outs, err := drv.Outs()
+	must(err)
+
+	if len(os.Args) == 2 && os.Args[1] == "list" {
+		printInPorts(ins)
+		printOutPorts(outs)
+		return
+	}
+
+	in, out := ins[0], outs[0]
+
+	must(in.Open())
+	must(out.Open())
+
+	wr := writer.New(out)
+
+	// listen for MIDI
+	rd := reader.New(nil)
+	go rd.ListenTo(in)
+
+	{ // write MIDI to out that passes it to in on which we listen.
+		err := writer.NoteOn(wr, 60, 100)
 		if err != nil {
-			log.Println("error creating output stream", err)
-			return
+			panic(err)
 		}
-		log.Println("write C on")
-		midiout.WriteShort(0x90, 60, 100)
-		log.Println("wait 2 seconds")
-		time.Sleep(2 * time.Second)
-		log.Println("write C off")
-		midiout.WriteShort(0x80, 60, 100)
-		log.Println("close output stream")
-		midiout.Close()
+		time.Sleep(time.Nanosecond)
+		writer.NoteOff(wr, 60)
+		time.Sleep(time.Nanosecond)
+
+		wr.SetChannel(1)
+
+		writer.NoteOn(wr, 70, 100)
+		time.Sleep(1 * time.Second)
+		writer.NoteOff(wr, 70)
+		time.Sleep(time.Second * 1)
 	}
+}
+
+func printPort(port midi.Port) {
+	fmt.Printf("[%v] %s\n", port.Number(), port.String())
+}
+
+func printInPorts(ports []midi.In) {
+	fmt.Printf("MIDI IN Ports\n")
+	for _, port := range ports {
+		printPort(port)
+	}
+	fmt.Printf("\n\n")
+}
+
+func printOutPorts(ports []midi.Out) {
+	fmt.Printf("MIDI OUT Ports\n")
+	for _, port := range ports {
+		printPort(port)
+	}
+	fmt.Printf("\n\n")
 }

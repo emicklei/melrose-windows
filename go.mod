@@ -1,5 +1,8 @@
-module github.com/emicklei/melrose-windows
+module github.com/emicklei/melrose-windows/rtmidi
 
 go 1.15
 
-require github.com/rakyll/portmidi v0.0.0-20201020180702-d436ceaa537a // indirect
+require (
+	gitlab.com/gomidi/midi v1.23.0 // indirect
+	gitlab.com/gomidi/rtmididrv v0.11.0 // indirect
+)
