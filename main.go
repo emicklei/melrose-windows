@@ -2,90 +2,48 @@ package main
 
 import (
 	"fmt"
-	"os"
-	"time"
+	"log"
 
-	"gitlab.com/gomidi/midi"
-	"gitlab.com/gomidi/midi/reader"
-	"gitlab.com/gomidi/midi/writer"
-	driver "gitlab.com/gomidi/rtmididrv"
+	"gitlab.com/gomidi/rtmididrv/imported/rtmidi"
 	// when using portmidi, replace the line above with
 	// driver gitlab.com/gomidi/portmididrv
 )
 
-func must(err error) {
-	if err != nil {
-		panic(err.Error())
-	}
-}
-
-// This example expects the first input and output port to be connected
-// somehow (are either virtual MIDI through ports or physically connected).
-// We write to the out port and listen to the in port.
 func main() {
-	drv, err := driver.New()
-	must(err)
-
-	// make sure to close all open ports at the end
-	defer drv.Close()
-
-	ins, err := drv.Ins()
-	must(err)
-
-	outs, err := drv.Outs()
-	must(err)
-
-	if len(os.Args) == 2 && os.Args[1] == "list" {
-		printInPorts(ins)
-		printOutPorts(outs)
-		return
+	in, err := rtmidi.NewMIDIInDefault()
+	if err != nil {
+		log.Fatalln("can't open default MIDI in: ", err)
 	}
-
-	in, out := ins[0], outs[0]
-
-	must(in.Open())
-	must(out.Open())
-
-	wr := writer.New(out)
-
-	// listen for MIDI
-	rd := reader.New(nil)
-	go rd.ListenTo(in)
-
-	{ // write MIDI to out that passes it to in on which we listen.
-		err := writer.NoteOn(wr, 60, 100)
+	defer in.Close()
+	ports, err := in.PortCount()
+	if err != nil {
+		log.Fatalln("can't get number of in ports: ", err.Error())
+	}
+	for i := 0; i < ports; i++ {
+		name, err := in.PortName(i)
 		if err != nil {
-			panic(err)
+			name = ""
 		}
-		time.Sleep(time.Nanosecond)
-		writer.NoteOff(wr, 60)
-		time.Sleep(time.Nanosecond)
-
-		wr.SetChannel(1)
-
-		writer.NoteOn(wr, 70, 100)
-		time.Sleep(1 * time.Second)
-		writer.NoteOff(wr, 70)
-		time.Sleep(time.Second * 1)
+		fmt.Println(name)
 	}
-}
+	{
+		// Outs
+		out, err := rtmidi.NewMIDIOutDefault()
+		if err != nil {
+			log.Fatalln("can't open default MIDI out: ", err)
+		}
+		defer out.Close()
+		ports, err := out.PortCount()
+		if err != nil {
+			log.Fatalln("can't get number of out ports: ", err.Error())
+		}
 
-func printPort(port midi.Port) {
-	fmt.Printf("[%v] %s\n", port.Number(), port.String())
-}
-
-func printInPorts(ports []midi.In) {
-	fmt.Printf("MIDI IN Ports\n")
-	for _, port := range ports {
-		printPort(port)
+		for i := 0; i < ports; i++ {
+			name, err := out.PortName(i)
+			if err != nil {
+				name = ""
+			}
+			fmt.Println(name)
+		}
 	}
-	fmt.Printf("\n\n")
-}
-
-func printOutPorts(ports []midi.Out) {
-	fmt.Printf("MIDI OUT Ports\n")
-	for _, port := range ports {
-		printPort(port)
-	}
-	fmt.Printf("\n\n")
 }
