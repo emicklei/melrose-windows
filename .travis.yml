@@ -18,7 +18,8 @@ script:
 - rm main.go
 - ls -l
 #- cp 'C:\\tools\\msys64\mingw64\bin\libportmidi.dll' .
-- cp 'C:\\tools\\msys64\mingw64\bin\libgcc_s_seh-1.dll .
+- cp 'C:\\tools\\msys64\mingw64\bin\libgcc_s_seh-1.dll' .
+- cp 'C:\\tools\\msys64\mingw64\bin\libstdc++-6.dll' .
 - go env
 
 deploy:
