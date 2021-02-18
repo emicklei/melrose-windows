@@ -2,21 +2,20 @@ os: windows
 language: go
 
 go:
-- 1.15.x
+- 1.16.x
 
 script:
 - pwd 
-#- git clone --depth=50 https://github.com/emicklei/melrose.git emicklei/melrose
+- git clone --depth=50 https://github.com/emicklei/melrose.git emicklei/melrose
 - ls -l
 - ls -l 'C:\\tools\\msys64\mingw64\bin'
-#- cd emicklei/melrose/cmd/melrose
+- cd emicklei/melrose/cmd/melrose
 - VERSION=$(git tag | sort -V | tail -1)
 - echo $VERSION
 - export CGO_CFLAGS="-IC:\\tools\msys64\mingw64\include"
 - export CGO_LDFLAGS="-LC:\\tools\msys64\mingw64\lib"
-- echo $CGO_LDFLAGS
 - CGO_ENABLED=1 go build -v -buildmode=exe -ldflags="-X 'core.BuildTag=$VERSION'"
-#- rm main.go
+- rm main.go
 - ls -l
 - cp 'C:\\tools\\msys64\mingw64\bin\libportmidi.dll' .
 - go env
