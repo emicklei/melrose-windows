@@ -7,8 +7,6 @@ import (
 	"time"
 
 	"gitlab.com/gomidi/rtmididrv/imported/rtmidi"
-	// when using portmidi, replace the line above with
-	// driver gitlab.com/gomidi/portmididrv
 )
 
 var port = flag.Int("p", -1, "port number for out")
