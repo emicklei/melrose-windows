@@ -15,7 +15,7 @@ script:
 - export CGO_CFLAGS="-IC:\\tools\msys64\mingw64\include"
 - export CGO_LDFLAGS="-LC:\\tools\msys64\mingw64\lib"
 - mkdir target
-- CGO_ENABLED=1 go build -v -buildmode=exe -ldflags="-X 'core.BuildTag=$VERSION'" -o target/melrose.exe
+- CGO_ENABLED=1 go build -v -buildmode=exe -ldflags="-X 'main.BuildTag=$VERSION'" -o target/melrose.exe
 - cp 'C:\\tools\\msys64\mingw64\bin\libgcc_s_seh-1.dll' target
 - cp 'C:\\tools\\msys64\mingw64\bin\libstdc++-6.dll' target
 - cp 'C:\\tools\\msys64\mingw64\bin\libwinpthread-1.dll' target
