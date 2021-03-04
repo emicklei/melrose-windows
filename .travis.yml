@@ -6,22 +6,20 @@ go:
 
 script:
 - pwd 
-#- git clone --depth=50 https://github.com/emicklei/melrose.git emicklei/melrose
+- git clone --depth=50 https://github.com/emicklei/melrose.git emicklei/melrose
 - ls -l
 - ls -l 'C:\\tools\\msys64\mingw64\bin'
-#- cd emicklei/melrose/cmd/melrose
+- cd emicklei/melrose/cmd/melrose
 - VERSION=$(git tag | sort -V | tail -1)
 - echo $VERSION
 - export CGO_CFLAGS="-IC:\\tools\msys64\mingw64\include"
 - export CGO_LDFLAGS="-LC:\\tools\msys64\mingw64\lib"
-- CGO_ENABLED=1 go build -v -buildmode=exe -ldflags="-X 'core.BuildTag=$VERSION'"
-- rm main.go
-- ls -l
-#- cp 'C:\\tools\\msys64\mingw64\bin\libportmidi.dll' .
-- cp 'C:\\tools\\msys64\mingw64\bin\libgcc_s_seh-1.dll' .
-- cp 'C:\\tools\\msys64\mingw64\bin\libstdc++-6.dll' .
-- cp 'C:\\tools\\msys64\mingw64\bin\libwinpthread-1.dll' .
-- go env
+- mkdir target
+- CGO_ENABLED=1 go build -v -buildmode=exe -ldflags="-X 'core.BuildTag=$VERSION'" -o target/melrose.exe
+- cp 'C:\\tools\\msys64\mingw64\bin\libgcc_s_seh-1.dll' target
+- cp 'C:\\tools\\msys64\mingw64\bin\libstdc++-6.dll' target
+- cp 'C:\\tools\\msys64\mingw64\bin\libwinpthread-1.dll' target
+- cd target && ls -l
 
 deploy:
   provider: s3
@@ -52,9 +50,6 @@ before_install:
         
         ## https://www.devdungeon.com/content/install-gcc-compiler-windows-msys2-cc
         $msys2 pacman --noconfirm -S base-devel gcc vim cmake
-
-        ## https://schollz.com/blog/portmidi/
-        $msys2 pacman --noconfirm -S mingw-w64-x86_64-portmidi
 
         taskkill //IM gpg-agent.exe //F  # https://travis-ci.community/t/4967
         export PATH=/C/tools/msys64/mingw64/bin:$PATH
