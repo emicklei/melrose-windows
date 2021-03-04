@@ -20,6 +20,7 @@ script:
 - cp 'C:\\tools\\msys64\mingw64\bin\libstdc++-6.dll' target
 - cp 'C:\\tools\\msys64\mingw64\bin\libwinpthread-1.dll' target
 - cd target && ls -l
+- cd /c/Users/travis/gopath/src/github.com/emicklei/melrose-windows
 
 deploy:
   provider: s3
