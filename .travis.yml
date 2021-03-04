@@ -31,7 +31,7 @@ deploy:
   skip_cleanup: true
   acl: public_read
   on:
-    branch: main
+    tags: true
 
 
 before_install:
