@@ -20,9 +20,9 @@ script:
 - cp 'C:\\tools\\msys64\mingw64\bin\libstdc++-6.dll' $TARGET
 - cp 'C:\\tools\\msys64\mingw64\bin\libwinpthread-1.dll' $TARGET
 - cd $TARGET && ls -l
-- zip -r "melrose-$VERSION.zip" .
-- rm *.dll
-- rm *.exe
+#- zip -r "melrose-$VERSION.zip" .
+#- rm *.dll
+#- rm *.exe
 
 deploy:
   provider: s3
