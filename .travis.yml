@@ -25,13 +25,15 @@ script:
 #- rm *.exe
 
 deploy:
-  provider: s3
-  access_key_id: "$AWS_ACCESS_KEY"
-  secret_access_key: "$AWS_SECRET_KEY"
-  bucket: "public.philemonworks.com"
+  provider: gcs
+  access_key_id: GOOG1EKR2E2NUQ4V6UPGXSTDE2OUYNBVUQE5L33HU6XKKDMLEDXAXM7WARLKY
+  secret_access_key:
+    secure: YpfTnVDzN8hYyLGr4pVRMuorsmoL3YY/YEBrktpPGv5ErylqUFKPR1iRy8VEnTBV2qP/kj0fXv+7pUCJ5hRy6ytVJl5mZhT8pv1zS8/mPOcTJWLxCmb2UCtTMEKk6AbEvYBv030BJqLe80aZ3ON0EL1y+khuVHjJHk8wKf5TZfeRC3feHnpqK5JfmfeKlqI6vLAE4DFJS7yOMb8O8CF9KSIYkcZ5ltQ34T/hHZcQ99q3A5ykEN8Mu4mkt2UouuUD7kCDBwJa4isizejHKy/DThk/Hhv4uZYCe6mp4Y9/V+0UYcw7LgcYEDEAd6IOqQL+8060jgegD2XL/kxfsT9B+LUoU7CEG04eWdYE9grc9DE7TEDDbAoxgXYHKIX8cUndL1YZIzB+mNwjybAc3l1lkikE4nE0AFms9QFYqCB5uZGV1mt/MgB7fE0LAjOEovc69jwDM/JQoH5WSHMwmzV7G1RIL6Vo8bXv3QuZftTRVUNT1msDf7RAyb61AdZu2Ii0Kqg5Tmx/SHHeNjxw9BV7mKBZwRh2B0U9kl7unD952JTXBsmma94uJxtczKt4BfIHOYtlzl0oR8TYDVQtQ4lSGauIRem81F+E6i85wAVEAKUg6rFYthBCOULvC8fh3zCq4Ad8jG7Y9P9ZoR68QwvdNuaeiGEC2IhsAdQtr2LBogw=
+  bucket: downloads.ernestmicklei.com
   skip_cleanup: true
   acl: public_read
   on:
+    repo: emicklei/melrose-windows
     tags: true
 
 
@@ -73,8 +75,3 @@ cache:
     directories:
     - $HOME/AppData/Local/Temp/chocolatey
     - /C/tools/msys64
-
-env:
-  global:
-    - secure: "w4Wh/aPqXuV3S7ylGTZS4t6+5KD8jUEYo/9rRhuq9puJIbyqO1CPnN6/tHuqr2lPhZRXKX3LA1BpCtfYe4nY2B6zSBkXzuQmK98UVzA0PIbRnu4cn90LhU3TMi6njgljpiJs0r5FTfJWYnw0H50vsK/V9LNVppFnyVdtKkd3BZ86bPgYumw/Mhu9dc8nabF65PrpPDGnuWBZzq8U8SlwiN7fUc72iBvi3ySf8MMLGwupEeszBon85rxtISL9PMBhbpUrdG9A5dbUXahZlHtzEtndK4jdUxHivVz25PpnbXA1jlnOf0vwnYE/CuAe/fRJhBbr8d/12cevc30D1GYcNTuZz6110eiV77+Y4zivz/Vr3tZE06tiJ9roHFY2bMST8ab/8aQozuiss3zThUrO80EA4WYmNHhSSTq03Q+/Ip41MHqi36gWbH2wO+3B/PHgNKFVh/SJTpEY0oC1VBi5or1WvX1MGBZPyW6qb29uArmdZRLu+oF2FVCyRN7G3oK3pX/xJGWIEM6PTwOCUzFgpcNya2EiinSb6nkMMgG6tsOJvGbAXgu38DtuQs/xV+Hz5dLws2NtL8G+FnbuP66x2btaxFQTDZHL3KDWiG/93Z8RJZRN4JF3yIlvWZUplhXUHy1zofKqzcb4g0mRaEhNUYnzeXSxd8Jqo2sKfbGCMJQ="
-    - secure: "x4gc+h3VdFAgZjw6v7pZMSA//uPIYrZc37yppEG53TVpoVpfHpIAVYgXxprX89H7lGr2YaOzXivyJ+BzOGqaq20S2mlNNHH5xUegtI4rQftBMkyO/x0J3tqu0kgo0mlsUUN9aXZrC0zatZlwpz6CL4Jqh7qpzvbNKHbUm2o+Re4bNbQG0paSIgst5FyuY0/n1sKyJq2U3jbxiJNtleNtatJjfKIOICgExhM8EywBpk8wEuEWOzi6yrGOqzm5PQ5lkDM9xMni5hde5prZkmeYW+2uDS6H80fTMbHkKjiKoM60y8mGCAQvCcWKStNMqffmZ6k1qniKsnMHLj0Cgv80RDGWnB+/7AmiTboCXN9jpY6lZm9pJQ6gbiQZI2xMHAeMOVlOf+KR5M+6g+FgHIqlJW8L0bQMgTM6Zq6jHVwTfaP4DvYkiW6veB9mCPDZQ5hIl6aOke+h8KU3bPZ0JAQL+oSDD6EogVdDnRDcrvFcnPKQtplevXwGH3BlVYlr+Oy7SMWBITEDJTY7NV+auvw4DgnCBO2F+389UWYjq10Ozm05vOLS9bG0uEFa4WoH2q+70f6bZ1hH8aN10zyO3NgKsure0ajUGc/KRLrZuTUUEcMDQ+lh31GzHVoR6LLIC89NM3HqBE4XzuorNbYWCK+cgl9sZ+Vu8BfiaQonvfckXGY="
