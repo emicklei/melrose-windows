@@ -20,6 +20,7 @@ script:
 - cp 'C:\\tools\\msys64\mingw64\bin\libstdc++-6.dll' $TARGET
 - cp 'C:\\tools\\msys64\mingw64\bin\libwinpthread-1.dll' $TARGET
 - ls -l $TARGET
+- export PATH=$PATH:/c/tools/msys64/mingw64/bin
 #- zip -r "melrose-$VERSION.zip" .
 #- rm *.dll
 #- rm *.exe
@@ -61,7 +62,7 @@ before_install:
 
         taskkill //IM gpg-agent.exe //F  # https://travis-ci.community/t/4967
         export PATH=/C/tools/msys64/mingw64/bin:$PATH
-        export MAKE=mingw32-make  # so that Autotools can find it        
+        export MAKE=mingw32-make  # so that Autotools can find it                
         ;;
     esac
 
