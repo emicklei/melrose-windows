@@ -24,6 +24,7 @@ script:
 #- rm *.dll
 #- rm *.exe
 
+# https://docs.travis-ci.com/user/deployment-v2/providers/gcs/
 deploy:
   provider: gcs
   edge: true
@@ -33,7 +34,7 @@ deploy:
   bucket: downloads.ernestmicklei.com
   skip_cleanup: true
   acl: public-read
-  local-dir: target
+  local-dir: $TARGET
   on:
     repo: emicklei/melrose-windows
     tags: true
