@@ -35,7 +35,7 @@ deploy:
   bucket: downloads.ernestmicklei.com
   skip_cleanup: true
   acl: public-read
-  local-dir: $TARGET
+  local_dir: $TARGET
   on:
     repo: emicklei/melrose-windows
     tags: true
