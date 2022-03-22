@@ -21,23 +21,15 @@ script:
 - cp 'C:\\tools\\msys64\mingw64\bin\libwinpthread-1.dll' $TARGET
 - ls -l $TARGET
 - export PATH=$PATH:/c/tools/msys64/mingw64/bin
-#- zip -r "melrose-$VERSION.zip" .
-#- rm *.dll
-#- rm *.exe
+- zip -r "melrose-$VERSION.zip" .
 
-# https://docs.travis-ci.com/user/deployment-v2/providers/gcs/
 deploy:
-  provider: gcs
-  edge: true
-  access_key_id: GOOG1EKR2E2NUQ4V6UPGXSTDE2OUYNBVUQE5L33HU6XKKDMLEDXAXM7WARLKY
-  secret_access_key:
-    secure: YpfTnVDzN8hYyLGr4pVRMuorsmoL3YY/YEBrktpPGv5ErylqUFKPR1iRy8VEnTBV2qP/kj0fXv+7pUCJ5hRy6ytVJl5mZhT8pv1zS8/mPOcTJWLxCmb2UCtTMEKk6AbEvYBv030BJqLe80aZ3ON0EL1y+khuVHjJHk8wKf5TZfeRC3feHnpqK5JfmfeKlqI6vLAE4DFJS7yOMb8O8CF9KSIYkcZ5ltQ34T/hHZcQ99q3A5ykEN8Mu4mkt2UouuUD7kCDBwJa4isizejHKy/DThk/Hhv4uZYCe6mp4Y9/V+0UYcw7LgcYEDEAd6IOqQL+8060jgegD2XL/kxfsT9B+LUoU7CEG04eWdYE9grc9DE7TEDDbAoxgXYHKIX8cUndL1YZIzB+mNwjybAc3l1lkikE4nE0AFms9QFYqCB5uZGV1mt/MgB7fE0LAjOEovc69jwDM/JQoH5WSHMwmzV7G1RIL6Vo8bXv3QuZftTRVUNT1msDf7RAyb61AdZu2Ii0Kqg5Tmx/SHHeNjxw9BV7mKBZwRh2B0U9kl7unD952JTXBsmma94uJxtczKt4BfIHOYtlzl0oR8TYDVQtQ4lSGauIRem81F+E6i85wAVEAKUg6rFYthBCOULvC8fh3zCq4Ad8jG7Y9P9ZoR68QwvdNuaeiGEC2IhsAdQtr2LBogw=
-  bucket: downloads.ernestmicklei.com
+  provider: releases
+  api_key:
+    secure: "iEG/M0YI+5Kc8+VyD8IVq67NrjKlOyAk73cw/wct/sYfKJ0wNCO2BvX3DvX29hqWA8GVzh3ecmsatKAXZHtcgDuQLHjU3sm8E2MlaRAkHKBsrSCwuzKDwmpFd8VykppkQxaVT/X+l2Oua3DKvWdL9PriQ3XN6F2jmfTSLVn63OKOYgFRBEtyb6yO2kUzG/W+t4dzxhbXAvEkIdyL+L251KAlDzXngnL8Inca7qW8l5BsUF9x0Bn+Np0xHXQ2gCN7eXFM6tczXjOPcQ0Ug2+ZUPtwKqi6KPsxuYtF82kKnA0z1c9g+nCdnKanG9zm5BeliuHwGUWT+z3Gczt8wC9J1oLfp+55s5Tcq467JFMoYPjzBgZEckJb7YEiu+CnenAQWlUSr5TsvneJkPH7boXorzVQ0wqlR2i5doBGLUeiLPI2JpIAOJYV7nZNVGamYCs58D4Yu6SsxEjQEMy687/94AL++E2qq6iVJhbnsipRGVJzColIuMz2W6yO8YvrNKwa8yzBBsNCT2MT8TFCMxSXXIq4vpWDiG1nR5sMOMiygAqwyskkxfyG70hWpY/DoPJ1ghMMr2JNCCOPA+gxE2a4wg3M5OvvD5bDlNFQLjjdyk9pOhRFMkULGSagPBGD6r13ZU3685iqWL/tQyXYBq5HwUlP6/SFS7R2/4Vpq2DEOTU="
+  file: "melrose-$VERSION.zip"
   skip_cleanup: true
-  acl: public-read
-  local_dir: $TARGET
   on:
-    repo: emicklei/melrose-windows
     tags: true
 
 
