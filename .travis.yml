@@ -22,7 +22,7 @@ script:
 - ls -l $TARGET
 - export PATH=$PATH:/c/tools/msys64/mingw64/bin
 - cd $TARGET
-- zip -r "melrose-$VERSION.zip" .
+- 7z a -tzip "melrose-windows-${TRAVIS_TAG}.zip" *.*
 
 deploy:
   provider: releases
