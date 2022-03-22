@@ -28,7 +28,7 @@ deploy:
   provider: releases
   api_key:
     secure: "iEG/M0YI+5Kc8+VyD8IVq67NrjKlOyAk73cw/wct/sYfKJ0wNCO2BvX3DvX29hqWA8GVzh3ecmsatKAXZHtcgDuQLHjU3sm8E2MlaRAkHKBsrSCwuzKDwmpFd8VykppkQxaVT/X+l2Oua3DKvWdL9PriQ3XN6F2jmfTSLVn63OKOYgFRBEtyb6yO2kUzG/W+t4dzxhbXAvEkIdyL+L251KAlDzXngnL8Inca7qW8l5BsUF9x0Bn+Np0xHXQ2gCN7eXFM6tczXjOPcQ0Ug2+ZUPtwKqi6KPsxuYtF82kKnA0z1c9g+nCdnKanG9zm5BeliuHwGUWT+z3Gczt8wC9J1oLfp+55s5Tcq467JFMoYPjzBgZEckJb7YEiu+CnenAQWlUSr5TsvneJkPH7boXorzVQ0wqlR2i5doBGLUeiLPI2JpIAOJYV7nZNVGamYCs58D4Yu6SsxEjQEMy687/94AL++E2qq6iVJhbnsipRGVJzColIuMz2W6yO8YvrNKwa8yzBBsNCT2MT8TFCMxSXXIq4vpWDiG1nR5sMOMiygAqwyskkxfyG70hWpY/DoPJ1ghMMr2JNCCOPA+gxE2a4wg3M5OvvD5bDlNFQLjjdyk9pOhRFMkULGSagPBGD6r13ZU3685iqWL/tQyXYBq5HwUlP6/SFS7R2/4Vpq2DEOTU="
-  file: "$TARGET/melrose-$VERSION.zip"
+  file: "$TARGET/melrose-${TRAVIS_TAG}.zip"
   skip_cleanup: true
   on:
     tags: true
